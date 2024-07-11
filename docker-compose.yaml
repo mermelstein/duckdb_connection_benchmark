@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  duckdb-benchmark:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    environment:
+      - MAX_CONNECTIONS=${MAX_CONNECTIONS:-1000}
+      - STEP=${STEP:-50}
+    command: python benchmark.py
