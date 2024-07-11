@@ -1,6 +1,6 @@
 # DuckDB Concurrent Connections Benchmark
 
-This repository contains a benchmark script to test the maximum number of concurrent connections to a DuckDB database. The script measures the performance and success rate of running concurrent queries as the number of connections increases.
+This repository contains a benchmark script to test the maximum number of concurrent connections to a DuckDB database. The script measures the performance and success rate of running concurrent queries as the number of connections increases. The original script was mostly written by Claude Sonnet 3.5 with guidance and requirements described by a human over several iterations.
 
 ## Contents
 
