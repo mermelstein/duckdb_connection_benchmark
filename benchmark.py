@@ -33,14 +33,17 @@ def benchmark_concurrent_connections(db_path: str, num_connections: int) -> Tupl
     successful_connections = 0
     errors = []
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=num_connections) as executor:
-        future_to_connection = {executor.submit(run_query, db_path): i for i in range(num_connections)}
-        for future in concurrent.futures.as_completed(future_to_connection):
-            success, error = future.result()
-            if success:
-                successful_connections += 1
-            else:
-                errors.append(error)
+    try:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=num_connections) as executor:
+            future_to_connection = {executor.submit(run_query, db_path): i for i in range(num_connections)}
+            for future in concurrent.futures.as_completed(future_to_connection):
+                success, error = future.result()
+                if success:
+                    successful_connections += 1
+                else:
+                    errors.append(error)
+    except RuntimeError as e:
+        errors.append(str(e))
 
     elapsed_time = time.time() - start_time
     return successful_connections, elapsed_time, errors
